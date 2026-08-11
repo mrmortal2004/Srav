@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday — Sravani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Poppins:wght@500;600&family=Archivo+Black&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT-IN-CODE GUIDE
+     - Name:   search for "Olivia Wilson" (there are 2 spots: <title> and .name div)
+     - Date:   search for "7 January" and "2026"
+     - Photo:  replace photo-placeholder.svg, or change the img src below
+     - Colors: adjust --amber-1 / --amber-2 / --amber-3 below
+     ============================================================ */
+  :root{
+    --cream: #eeece5;
+    --cream-2: #e6e3da;
+    --ink: #3b3a35;
+    --ink-soft: #6b6a63;
+    --amber-1: #f5a324;
+    --amber-2: #d97706;
+    --amber-3: #b8570a;
+    --card-radius: 28px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #d8d5cb;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .stage{
+    position: relative;
+    width: min(1200px, 100%);
+    aspect-ratio: 16 / 9;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(255,255,255,0.5), transparent 45%),
+      linear-gradient(160deg, var(--cream) 0%, var(--cream-2) 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 60px -20px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  /* subtle grain */
+  .stage::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* ---------- Date, top right ---------- */
+  .date{
+    position: absolute;
+    top: 6%;
+    right: 5.5%;
+    text-align: right;
+    color: var(--ink);
+    z-index: 5;
+    opacity: 0;
+    animation: fadeDown 0.8s ease-out 2.9s forwards;
+  }
+  .date .day-month{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 2.1vw, 26px);
+    letter-spacing: 0.02em;
+  }
+  .date .year{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 2.1vw, 26px);
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- Name, lower right ---------- */
+  .name{
+    position: absolute;
+    bottom: 26%;
+    right: 6%;
+    z-index: 5;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.8vw, 24px);
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeDown 0.8s ease-out 3.3s forwards;
+  }
+
+  /* ---------- "Happy" script ---------- */
+  .happy{
+    position: absolute;
+    top: 20%;
+    left: 6%;
+    font-family: 'Alex Brush', cursive;
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 1;
+    z-index: 4;
+    color: transparent;
+    background: linear-gradient(100deg, var(--amber-1), var(--amber-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    transform: translateY(14px);
+    opacity: 0;
+    animation: happyIn 0.9s cubic-bezier(.2,.8,.2,1) 0.3s forwards;
+  }
+
+  /* ---------- "Birthday" big text ---------- */
+  .birthday-wrap{
+    position: absolute;
+    left: 4.5%;
+    top: 34%;
+    right: 0;
+    z-index: 3;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .birthday-wrap span{
+    display: inline-block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(64px, 13vw, 165px);
+    background: linear-gradient(115deg, var(--amber-1) 0%, var(--amber-2) 55%, var(--amber-3) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    transform: translateY(0.15em);
+    animation: letterIn 0.55s cubic-bezier(.2,.9,.25,1) forwards;
+  }
+  /* stagger each letter — "Bi" appears first, then "rthday" finishes the word */
+  .birthday-wrap span:nth-child(1){ animation-delay: 0.55s; } /* B */
+  .birthday-wrap span:nth-child(2){ animation-delay: 0.68s; } /* i */
+  .birthday-wrap span:nth-child(3){ animation-delay: 1.55s; } /* r */
+  .birthday-wrap span:nth-child(4){ animation-delay: 1.66s; } /* t */
+  .birthday-wrap span:nth-child(5){ animation-delay: 1.77s; } /* h */
+  .birthday-wrap span:nth-child(6){ animation-delay: 1.88s; } /* d */
+  .birthday-wrap span:nth-child(7){ animation-delay: 1.99s; } /* a */
+  .birthday-wrap span:nth-child(8){ animation-delay: 2.10s; } /* y */
+
+  /* ---------- Photo ---------- */
+  .photo{
+    position: absolute;
+    bottom: 0;
+    left: 80%;
+    transform: translateX(-50%) translateY(40px) scale(0.96);
+    height: 96%;
+    z-index: 4;
+    opacity: 0;
+    animation: photoIn 1s cubic-bezier(.2,.8,.2,1) 0.9s forwards;
+    filter: drop-shadow(0 25px 30px rgba(0,0,0,0.18));
+  }
+  .photo img{
+    height: 100%;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  /* ---------- keyframes ---------- */
+  @keyframes happyIn{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @keyframes letterIn{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @keyframes photoIn{
+    to{ opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  }
+  @keyframes fadeDown{
+    to{ opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .happy, .birthday-wrap span, .photo, .date, .name{
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="stage" id="stage">
+
+    <div class="date">
+      <div class="day-month">12 July</div>
+      <div class="year">2005</div>
+    </div>
+
+    <div class="name">Sravani</div>
+
+    <div class="happy">Happy</div>
+
+    <div class="birthday-wrap" aria-label="Birthday">
+      <span>B</span><span>i</span><span>r</span><span>t</span><span>h</span><span>d</span><span>a</span><span>y</span>
+    </div>
+
+    <div class="photo">
+      <img src="person.png"Sravani">
+    </div>
+
+  </div>
+
+<script>
+  // Loops the whole reveal sequence every 7.25s, matching the original animation length.
+  const stage = document.getElementById('stage');
+
+  function restartAnimations(){
+    const els = stage.querySelectorAll('.happy, .birthday-wrap span, .photo, .date, .name');
+    els.forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow to reset
+      el.style.animation = '';
+    });
+  }
+
+  setInterval(restartAnimations, 7250);
+</script>
+
+</body>
+</html>
